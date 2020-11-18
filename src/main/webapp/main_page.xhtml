@@ -26,7 +26,7 @@
             <h:form id="form">
                 <span>Enter the value X</span>
                 <br/>
-                <h:selectOneMenu>
+                <h:selectOneMenu value="#{manager.valueX}">
                     <f:selectItem itemValue = "-3" itemLabel = "-3" />
                     <f:selectItem itemValue = "-2" itemLabel = "-2" />
                     <f:selectItem itemValue = "-1" itemLabel = "-1" />
@@ -41,20 +41,21 @@
 
                 <span>Enter the value Y</span>
                 <br/>
-                <h:inputText> </h:inputText>
+                <h:inputText value = "#{manager.valueY}"/>
                 <br/>
 
                 <span>Enter the value R</span>
                 <br/>
-                <h:selectBooleanCheckbox> 1 </h:selectBooleanCheckbox>
-                <h:selectBooleanCheckbox> 2 </h:selectBooleanCheckbox>
-                <h:selectBooleanCheckbox> 3 </h:selectBooleanCheckbox>
-                <h:selectBooleanCheckbox> 4 </h:selectBooleanCheckbox>
-                <h:selectBooleanCheckbox> 5 </h:selectBooleanCheckbox>
+                <h:selectBooleanCheckbox value="#{manager.valueR}"> 1 </h:selectBooleanCheckbox>
+                <h:selectBooleanCheckbox value="#{manager.valueR}"> 2 </h:selectBooleanCheckbox>
+                <h:selectBooleanCheckbox value="#{manager.valueR}"> 3 </h:selectBooleanCheckbox>
+                <h:selectBooleanCheckbox value="#{manager.valueR}"> 4 </h:selectBooleanCheckbox>
+                <h:selectBooleanCheckbox value="#{manager.valueR}"> 5 </h:selectBooleanCheckbox>
                 <br/>
 
-                <h:commandButton value="Send" type="submit"/>
+                <h:commandButton value="Send" type="submit" action="#{manager.handleRequest}"/>
 
+                <h:message for="form"/>
             </h:form>
         </f:view>
     </div>
@@ -69,7 +70,7 @@
                     <th align="center">R</th>
                     <th align="center">Answer</th>
                     <th align="center">Time</th>
-                    <th align="center">Work time(ms)</th>
+                    <th align="center">Work Time(ms)</th>
                 </tr>
             </table>
         </div>
