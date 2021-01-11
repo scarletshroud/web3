@@ -4,20 +4,24 @@ import utils.exceptions.UnknownValueException;
 
 public abstract class Validator {
 
-    public abstract String validate(String value);
+    public abstract boolean validate(String value, StringBuilder message);
 
-    protected boolean isEmpty(String value) {
-        return (value == null || value.equals(""));
+    public boolean isEmpty(String value, String name, StringBuilder message) {
+        if (value == null || value.equals("")) {
+            message.append("Value " + name + " wasn't entered.\n");
+            return true;
+        }
+        return false;
     }
 
     protected double handleValue(String value) {
+        double val = Double.parseDouble(value);
         if (value.contains(".") || value.contains(",")) {
             value = value.replace(",", ".");
             if (value.length() > 8) {
-                return Double.parseDouble(value.substring(0, 5));
+                val = Double.parseDouble(value.substring(0, 5));
             }
         }
-        return Double.parseDouble(value);
+        return val;
     }
-
 }

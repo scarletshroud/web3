@@ -4,4 +4,18 @@
               xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
     http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_3.xsd">
 
+    <managed-bean>
+        <managed-bean-name>managerBean</managed-bean-name>
+        <managed-bean-class>hmm.ManagerBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+
+    <navigation-rule>
+        <from-view-id>/main_page.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>success</from-outcome>
+            <to-view-id>/main_page.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
 </faces-config>

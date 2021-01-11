@@ -5,13 +5,13 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">>
+      xmlns:p="http://primefaces.org/ui" xmlns:c="http://java.sun.com/jsp/jstl/core">
 
 <h:head>
-    <h:outputStylesheet library="css" href="https://fonts.googleapis.com/css2?family=Press+Start+2Pdisplay=swap"/>
-    <h:outputStylesheet library="css" name="main_page.css"/>
-    <h:outputScript library="primefaces" name="jquery/jquery.js" target="head" />
-    <h:outputScript library="js" name="page.js"/>
+    <h:outputStylesheet name="css/main_page.css"/>
+    <h:outputScript name="js/jquery.js"/>
+    <h:outputScript name="js/coordinates.js"/>
+    <h:outputScript name="js/main_page.js"/>
     <title>Main Page</title>
 </h:head>
 
@@ -19,43 +19,168 @@
 
     <div id="content">
         <div id="coordinates">
-            <p:signature style="width:400px; height:400px"/>
+            <svg id="canvas" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="430" height="430">
+
+                <rect id="rectangle" x="115" y="216" width="100" height="200" fill="#74a5f5"></rect>
+
+                <polygon id="triangle" points="215,115 215,215 315,215" fill="#74a5f5"></polygon>
+
+                <path id="quater"
+                      d="M 215 315 A 100 100, 250, 0, 0, 315 215 L 215 215 Z" fill="#74a5f5"
+                ></path>
+
+                <line x1="0" y1="215" x2="430" y2="215" stroke-width="3" stroke="white"></line>
+                <line x1="215" y1="0" x2="215" y2="430" stroke-width="3" stroke="white"></line>
+
+                <line x1="415" y1="212" x2="415" y2="218" stroke-width="2" stroke="white" fill="white"></line>
+                <text x="400" y="212" fill="white">5</text>
+
+                <line x1="375" y1="212" x2="375" y2="218" stroke-width="2" stroke="white" fill="white"></line>
+                <text x="360" y="213" fill="white">4</text>
+
+                <line x1="335" y1="212" x2="335" y2="218" stroke-width="2" stroke="white"></line>
+                <text x="320" y="212" fill="white">3</text>
+
+                <line x1="295" y1="212" x2="295" y2="218" stroke-width="2" stroke="white"></line>
+                <text x="280" y="212" fill="white">2</text>
+
+                <line x1="255" y1="212" x2="255" y2="218" stroke-width="2" stroke="white"></line>
+                <text x="240" y="212" fill="white">1</text>
+
+                <line x1="175" y1="212" x2="175" y2="218" stroke-width="2" stroke="white"></line>
+                <text x="160" y="212" fill="white">-1</text>
+
+                <line x1="135" y1="212" x2="135" y2="218" stroke-width="2" stroke="white"></line>
+                <text x="120" y="212" fill="white">-2</text>
+
+                <line x1="95" y1="212" x2="95" y2="218" stroke-width="2" stroke="white"></line>
+                <text x="80" y="212" fill="white">-3</text>
+
+                <line x1="55" y1="212" x2="55" y2="218" stroke-width="2" stroke="white"></line>
+                <text x="40" y="212" fill="white">-4</text>
+
+                <line x1="15" y1="212" x2="15" y2="218" stroke-width="2" stroke="white"></line>
+                <text x="0" y="212" fill="white">-5</text>
+
+                <line y1="415" x1="212" y2="415" x2="218" stroke-width="2" stroke="white"></line>
+                <text y="419" x="219" fill="white">-5</text>
+
+                <line y1="375" x1="212" y2="375" x2="218" stroke-width="2" stroke="white"></line>
+                <text y="379" x="219" fill="white">-4</text>
+
+                <line y1="335" x1="212" y2="335" x2="218" stroke-width="2" stroke="white"></line>
+                <text y="339" x="219" fill="white">-3</text>
+
+                <line y1="295" x1="212" y2="295" x2="218" stroke-width="2" stroke="white"></line>
+                <text y="299" x="219" fill="white">-2</text>
+
+                <line y1="255" x1="212" y2="255" x2="218" stroke-width="2" stroke="white"></line>
+                <text y="259" x="219" fill="white">-1</text>
+
+                <line y1="175" x1="212" y2="175" x2="218" stroke-width="2" stroke="white"></line>
+                <text y="179" x="219" fill="white">1</text>
+
+                <line y1="135" x1="212" y2="135" x2="218" stroke-width="2" stroke="white"></line>
+                <text y="139" x="219" fill="white">2</text>
+
+                <line y1="95" x1="212" y2="95" x2="218" stroke-width="2" stroke="white"></line>
+                <text y="99" x="219" fill="white">3</text>
+
+                <line y1="55" x1="212" y2="55" x2="218" stroke-width="2" stroke="white"></line>
+                <text y="59" x="219" fill="white">4</text>
+
+                <line y1="15" x1="212" y2="15" x2="218" stroke-width="2" stroke="white"></line>
+                <text y="19" x="219" fill="white">5</text>
+
+            </svg>
+            <h:inputHidden id="results" value="#{managerBean.resultList}"/>
         </div>
 
         <f:view>
             <h:form id="form">
-                <span>Enter the value X</span>
-                <br/>
-                <h:selectOneMenu value="#{manager.valueX}">
-                    <f:selectItem itemValue = "-3" itemLabel = "-3" />
-                    <f:selectItem itemValue = "-2" itemLabel = "-2" />
-                    <f:selectItem itemValue = "-1" itemLabel = "-1" />
-                    <f:selectItem itemValue = "0" itemLabel = "0" />
-                    <f:selectItem itemValue = "1" itemLabel = "1" />
-                    <f:selectItem itemValue = "2" itemLabel = "2" />
-                    <f:selectItem itemValue = "3" itemLabel = "3" />
-                    <f:selectItem itemValue = "4" itemLabel = "4" />
-                    <f:selectItem itemValue = "5" itemLabel = "5" />
-                </h:selectOneMenu>
+                <div id="valueXInputBlock">
+                    <span>Enter the value X</span>
+                    <br/> <br/>
+                    <h:selectOneMenu class="select" id="valueXInput" value="#{managerBean.valueX}">
+                        <f:selectItem itemValue = "-3" itemLabel = "-3" />
+                        <f:selectItem itemValue = "-2" itemLabel = "-2" />
+                        <f:selectItem itemValue = "-1" itemLabel = "-1" />
+                        <f:selectItem itemValue = "0" itemLabel = " 0" />
+                        <f:selectItem itemValue = "1" itemLabel = " 1" />
+                        <f:selectItem itemValue = "2" itemLabel = " 2" />
+                        <f:selectItem itemValue = "3" itemLabel = " 3" />
+                        <f:selectItem itemValue = "4" itemLabel = " 4" />
+                        <f:selectItem itemValue = "5" itemLabel = " 5" />
+                    </h:selectOneMenu>
+                </div>
+
                 <br/>
 
-                <span>Enter the value Y</span>
-                <br/>
-                <h:inputText value = "#{manager.valueY}"/>
+                <div id="valueYInputBlock">
+                    <span>Enter the value Y (-5; 3)</span>
+                    <br/> <br/>
+                    <h:inputText class="text-input" id="valueYInput" required="true" value="#{managerBean.valueY}" >
+                        <f:validator validatorId="validatorY"/>
+                    </h:inputText>
+                </div>
+
                 <br/>
 
-                <span>Enter the value R</span>
-                <br/>
-                <h:selectBooleanCheckbox value="#{manager.valueR}"> 1 </h:selectBooleanCheckbox>
-                <h:selectBooleanCheckbox value="#{manager.valueR}"> 2 </h:selectBooleanCheckbox>
-                <h:selectBooleanCheckbox value="#{manager.valueR}"> 3 </h:selectBooleanCheckbox>
-                <h:selectBooleanCheckbox value="#{manager.valueR}"> 4 </h:selectBooleanCheckbox>
-                <h:selectBooleanCheckbox value="#{manager.valueR}"> 5 </h:selectBooleanCheckbox>
-                <br/>
+                <div id="valueRInputBlock">
+                    <span>Enter the value R</span>
+                    <br/> <br/>
+                    <h:outputLabel class="checkbox-label" value="1" onclick="drawCoordinates(1); setHiddenValueR(1)">
+                        <h:selectBooleanCheckbox class="checkbox" value="#{managerBean.checkboxesR[0]}" onclick="checkboxValidate(this)"/>
+                        <span class="fake-checkbox"/>
+                    </h:outputLabel>
 
-                <h:commandButton value="Send" type="submit" action="#{manager.handleRequest}"/>
+                    <h:outputLabel class="checkbox-label" value="2" onclick="drawCoordinates(2); setHiddenValueR(2)">
+                        <h:selectBooleanCheckbox class="checkbox" value="#{managerBean.checkboxesR[1]}" onclick="checkboxValidate(this)"/>
+                        <span class="fake-checkbox"/>
+                    </h:outputLabel>
+
+                    <h:outputLabel class="checkbox-label" value="3" onclick="drawCoordinates(3); setHiddenValueR(3)">
+                        <h:selectBooleanCheckbox class="checkbox" value="#{managerBean.checkboxesR[2]}" onclick="checkboxValidate(this)"/>
+                        <span class="fake-checkbox"/>
+                    </h:outputLabel>
+
+                    <h:outputLabel class="checkbox-label" value="4" onclick="drawCoordinates(4); setHiddenValueR(4)">
+                        <h:selectBooleanCheckbox class="checkbox" value="#{managerBean.checkboxesR[3]}" onclick="checkboxValidate(this)"/>
+                        <span class="fake-checkbox"/>
+                    </h:outputLabel>
+
+                    <h:outputLabel class="checkbox-label" value="5" onclick="drawCoordinates(5); setHiddenValueR(5)">
+                        <h:selectBooleanCheckbox class="checkbox" value="#{managerBean.checkboxesR[4]}" onclick="checkboxValidate(this)"/>
+                        <span class="fake-checkbox"/>
+                    </h:outputLabel>
+                    <br/>
+                </div>
+
+                <div id="submit-button">
+                    <h:commandButton value="Send" type="submit" class="fake-button" action="#{managerBean.handleRequest}" onclick="handleRequest()"/>
+                </div>
 
                 <h:message for="form"/>
+            </h:form>
+
+            <h:form>
+                <div id="clear-button">
+                    <h:commandButton value="Clear" type="submit" class="fake-button" action="#{managerBean.clearAll}"/>
+                </div>
+            </h:form>
+
+            <div id="errorMessageBlock">
+                    <h:panelGroup id="error-message" rendered="#{managerBean.successful == false}">
+                    <h:outputText value="#{managerBean.errorMessage}" escape="false"/>
+                </h:panelGroup>
+            </div>
+
+            <h:form id="hidden-form">
+                <h:inputHidden id="valueX-hidden" value="#{managerBean.valueX}"/>
+                <h:inputHidden id="valueY-hidden" value="#{managerBean.valueY}"/>
+                <h:inputHidden id="valueR-hidden" value="#{managerBean.valueR}"/>
+                <h:inputHidden id="redraw-flag" value="#{managerBean.successful}"/>
+                <h:commandButton type="submit" id="hidden-button" action="#{managerBean.handleRequestFromPic}"/>
             </h:form>
         </f:view>
     </div>
@@ -63,22 +188,48 @@
     <div id="result">
         <div class="table-container-history">
             <div class="history-title"> <h3>History</h3> </div>
-            <table cellpadding="1">
-                <tr>
-                    <th align="center">X</th>
-                    <th align="center">Y</th>
-                    <th align="center">R</th>
-                    <th align="center">Answer</th>
-                    <th align="center">Time</th>
-                    <th align="center">Work Time(ms)</th>
-                </tr>
-            </table>
-        </div>
-    </div>
+            <h:dataTable id="resultsTable" value="#{managerBean.resultList}" var="r">
 
+                <h:column>
+                    <f:facet name="header">X</f:facet>
+                    #{r.valueX}
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">Y</f:facet>
+                    #{r.valueY}
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">R</f:facet>
+                    #{r.valueR}
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">Answer</f:facet>
+                    #{r.answer}
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">Time</f:facet>
+                    #{r.time}
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">Work Time(ms)</f:facet>
+                    #{r.workTime}
+                </h:column>
+            </h:dataTable>
+        </div>
+
+        <div id="linkToStartPage">
+            <h:link value="Start Page" outcome="start_page"/>
+        </div>
+
+    </div>
     <div class="footer">
         <div class="footer-itmo-logo">
-            <a href="https://itmo.ru/ru/"> <h:graphicImage value="resources/pics/itmo_logo.png" alt="itmo-logo" width="30%" height="30%"/> </a>
+            <a href="https://itmo.ru/ru/"> <h:graphicImage value="resources/css/pics/itmo_logo.png" alt="itmo-logo" width="30%" height="30%"/> </a>
         </div>
 
         <div class="footer-text">
@@ -87,7 +238,7 @@
         </div>
 
         <div class="footer-my-github-logo">
-            <a href="https://github.com/slayer404"> <h:graphicImage value="resources/pics/my-logo.png" alt="my-github-logo" width="30%" height="30%"/> </a>
+            <a href="https://github.com/slayer404"> <h:graphicImage value="resources/css/pics/my-logo.png" alt="my-github-logo" width="30%" height="30%"/> </a>
         </div>
     </div>
 

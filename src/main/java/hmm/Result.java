@@ -1,27 +1,31 @@
-package model;
+package hmm;
 
-import lombok.Getter;
-import lombok.Setter;
+import javax.inject.Named;
+import javax.persistence.*;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import java.util.Date;
-
+@Named
 @Entity
-@Table(name = "result")
+@Table(name = "results", schema = "public")
 public class Result {
 
     @Id
-    private String userId;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "userId")
+    private long userId;
+    @Column(name = "valuex")
     private float valueX;
+    @Column(name = "valueY")
     private float valueY;
+    @Column(name = "valueR")
     private int valueR;
+    @Column(name = "answer")
     private String answer;
+    @Column(name = "time")
     private String time;
+    @Column(name = "workTime")
     private long workTime;
 
-    public Result(){}
+    public Result() { }
 
     public Result(float valueX, float valueY, int valueR, String answer, String time, long workTime) {
         this.valueX = valueX;
@@ -32,11 +36,11 @@ public class Result {
         this.workTime = workTime;
     }
 
-    public String getUserId() {
+    public long getUserId() {
         return userId;
     }
 
-    public void setUserId(String userId) {
+    public void setUserId(long userId) {
         this.userId = userId;
     }
 

@@ -1,14 +1,20 @@
+@font-face {
+    font-family: 'Press Start 2P';
+    src: url("/web3-1.0-SNAPSHOT/resources/css/fonts/PressStart2P.ttf") format("truetype");
+    font-weight:normal; font-style:normal;
+}
+
 #content {
     margin: 0;
     height: 100%;
-    background: url(../pics/content-background.png) center /100% 100% no-repeat;
+    background: url("/web3-1.0-SNAPSHOT/resources/css/pics/content-background.png") center /100% 100% no-repeat;
 }
 
 body {
     margin: 0;
     text-align: center;
     font-family: 'Press Start 2P', cursive;
-    cursor: url(../pics/cursor-default.png), default;
+    cursor: url("/web3-1.0-SNAPSHOT/resources/css/pics/cursor-default.png"), default;
 }
 
 #result {
@@ -26,11 +32,11 @@ body {
 }
 
 input, label {
-    cursor: url(../pics/cursor-default.png), default;
+    cursor: url("/web3-1.0-SNAPSHOT/resources/css/pics/cursor-default.png"), default;
 }
 
-a, .buttonX, .fake-button, .coordinatesCanvas {
-    cursor: url(../pics/cursor-pointer.png), pointer;
+a, .buttonX, .fake-button, .select, .select select, .select:after, .checkbox-label, #valueYInput  {
+    cursor: url("/web3-1.0-SNAPSHOT/resources/css/pics/cursor-pointer.png"), pointer;
 }
 
 table {
@@ -57,7 +63,7 @@ header {
     font-size: 60%;
     text-align: center;
     color: #e2bfef;
-    background: url(../pics/header.png) center /100% 100% no-repeat;
+    background: url("/web3-1.0-SNAPSHOT/resources/css/pics/header.png") center /100% 100% no-repeat;
 }
 
 header h1 {
@@ -76,18 +82,30 @@ h5 {
     text-align: center;
 }
 
-footer {
-    margin: 0;
-    display: inline-block;
-    background: url(../pics/footer_background.png) center /100% 100% no-repeat;
-    width: 100%;
-}
+/*** FORM ***/
 
 #form {
     color: #ded4ce;
 }
 
-.text-field {
+#valueXInputBlock, #valueYInputBlock, #valueRInputBlock {
+    margin: 0;
+    padding: 0.5%;
+}
+
+.select {
+    width: 10%;
+    border: 2px solid #888080;
+    border-radius: 4px;
+    background: #ded4ce;
+    outline: none;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 70%;
+    text-align: right;
+    color: #0a0a0a;
+}
+
+.text-input {
     font-family: 'Press Start 2P', cursive;
     border-radius: 3px;
     color: #ded4ce;
@@ -96,11 +114,44 @@ footer {
     outline: none;
 }
 
+.checkbox-label {
+    padding-left: 1.5%;
+    padding-right: 1.5%;
+}
+
+.checkbox {
+    margin: 0;
+    padding: 0;
+    opacity: 0;
+}
+
+.fake-checkbox {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    background: url("/web3-1.0-SNAPSHOT/resources/css/pics/checkbox.png");
+    position: relative;
+}
+
+.fake-checkbox::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    background: url("/web3-1.0-SNAPSHOT/resources/css/pics/tick.png");
+    opacity: 0;
+    transition: .2s;
+}
+
 .checkbox:checked + .fake-checkbox::before {
     opacity: 1;
 }
 
-.submit-button {
+#submit-button {
     padding-top: 3%;
     padding-bottom: 0;
 }
@@ -118,7 +169,7 @@ footer {
     -moz-border-radius:7px;
     border-radius: 7px;
     color:#20a0e0;
-    background:#ded4ce;
+    background: #ded4ce;
     -webkit-box-shadow:0px 0px 2px #bababa, inset 0px 0px 1px #ffffff;
     -moz-box-shadow: 0px 0px 2px #bababa,  inset 0px 0px 1px #ffffff;
     box-shadow:0px 0px 2px #bababa, inset 0px 0px 1px #ffffff;
@@ -144,7 +195,6 @@ footer {
     -webkit-box-shadow:0px 0px 2px #bababa, inset 0px 0px 1px #ffffff;
     -moz-box-shadow: 0px 0px 2px #bababa,  inset 0px 0px 1px #ffffff;
     box-shadow:0px 0px 2px #bababa, inset 0px 0px 1px #ffffff;
-
 }
 
 .fake-button:active {
@@ -164,18 +214,43 @@ footer {
     box-shadow:0px 0px 2px #9c9090, inset 0px 0px 1px #ffffff;
 }
 
+#submit-button {
+    padding-bottom: 3%;
+}
+
+#hidden-form {
+    display: none;
+}
+
+#hidden-button {
+    display: none;
+}
+
 .content {
     margin: 0;
 }
 
-.coordinates {
+#coordinates {
     padding-top: 5%;
     padding-bottom: 3%;
 }
 
+#linkToStartPage {
+    padding: 3%;
+}
+
+/*** FOOTER ***/
+
+.footer {
+    margin: 0;
+    display: inline-block;
+    background: url("/web3-1.0-SNAPSHOT/resources/css/pics/footer_background.png") center /100% 100% no-repeat;
+    width: 100%;
+}
+
 .footer-itmo-logo {
     margin-top: 3%;
-    margin-left: 10%;
+    margin-left: 4%;
     margin-bottom: 3%;
     float: left;
     width: 30%;
@@ -186,7 +261,8 @@ footer {
     color: #60b7ee;
     margin-top: 3%;
     margin-left: 0%;
-    width: 21%;
+    padding-left: 5%;
+    width: 25%;
     font-size: 13px;
 }
 
@@ -194,13 +270,14 @@ footer {
     float: right;
     margin-top: 3%;
     margin-left: 7%;
+    padding-right: 5%;
     width: 21%;
 }
 
-.error-message {
+#errorMessageBlock {
     color: #f9f9f9;
-    padding-top: 5%;
-    padding-bottom: 10%;
+    padding-top: 3%;
+    padding-bottom: 3%;
 }
 
 .result-title h3{

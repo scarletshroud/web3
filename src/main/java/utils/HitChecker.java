@@ -10,13 +10,10 @@ public class HitChecker {
             double y = Double.parseDouble(secondVal);
             int r = Integer.parseInt(thirdVal);
 
-            if ((x > -r / 2 && x < 0 && y > -r && y < 0)
-                    || (x > 0 && y <= 0 && x * x + y * y < r / 2 * r / 2)
-                    || (x > 0 && y >= 0 && y < r / 2 - x)) {
-                return true;
-            } else {
-                return false;
-            }
+            return ((x > -r / 2.0 && x < 0 && y > -r && y < 0)
+                    || (x > 0 && y <= 0 && x * x + y * y < r / 2.0 * r / 2.0)
+                    || (x > 0 && y >= 0 && y < r / 2.0 - x));
+
         } catch(NumberFormatException ex) {
             return false;
         }

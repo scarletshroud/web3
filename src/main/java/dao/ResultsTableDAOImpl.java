@@ -1,6 +1,6 @@
 package dao;
 
-import model.Result;
+import hmm.Result;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import utils.HibernateSessionFactoryUtil;
@@ -10,8 +10,7 @@ import java.util.List;
 public class ResultsTableDAOImpl implements ResultsTableDAO {
     @Override
     public List<Result> getAll() {
-        List<Result> results = (List<Result>) HibernateSessionFactoryUtil.getSessionFactory().openSession().createQuery("from Result").list();
-        return results;
+        return (List<Result>) HibernateSessionFactoryUtil.getSessionFactory().openSession().createQuery("from hmm.Result").list();
     }
 
     @Override
@@ -29,7 +28,11 @@ public class ResultsTableDAOImpl implements ResultsTableDAO {
     }
 
     @Override
-    public void delete() {
-
+    public void deleteAll() {
+        Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
+        Transaction transaction = session.beginTransaction();
+        session.createQuery("DELETE FROM Result r").executeUpdate();
+        transaction.commit();
+        session.close();
     }
 }

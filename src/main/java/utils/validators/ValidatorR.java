@@ -3,23 +3,25 @@ package utils.validators;
 public class ValidatorR extends Validator {
 
     @Override
-    public String validate(String value) {
+    public boolean validate(String value, StringBuilder message) {
 
-        if (isEmpty(value)) {
-            return "Value R wasn't entered<br><br>";
+        if (isEmpty(value, "R", message)) {
+            return false;
         }
 
         try {
             int val = Integer.parseInt(value);
 
-            if (!(val > 2 && val < 5)) {
-                return "Value R out of range<br><br>";
+            if (!(val >= 1 && val <= 5)) {
+                message.append("Value R out of range.\n");
+                return false;
             }
 
         } catch (NumberFormatException e) {
-            return "Value  R  is incorrect.<br><br>";
+            message.append("Value  R  is incorrect.\n");
+            return false;
         }
 
-        return "";
+        return true;
     }
 }
